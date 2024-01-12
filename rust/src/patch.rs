@@ -26,6 +26,12 @@ const NUM_AREAS: usize = 6;
 type PcAddr = usize; // PC pointer to ROM data
 type AsmPtr = usize; // 16-bit SNES pointer to ASM code in bank 0x8F
 
+#[derive(PartialEq)]
+enum DoorMarkerType {
+    Hazard,
+    Save,
+}
+
 pub fn snes2pc(addr: usize) -> usize {
     addr >> 1 & 0x3F8000 | addr & 0x7FFF
 }
@@ -1676,7 +1682,7 @@ impl<'a> Patcher<'a> {
         Ok(())
     }
 
-    fn apply_door_hazard_marker(&mut self, door_ptr_pair: DoorPtrPair) -> Result<()> {
+    fn apply_door_hazard_marker(&mut self, door_ptr_pair: DoorPtrPair, marker_type: DoorMarkerType) -> Result<()> {
         let mut other_door_ptr_pair = self.other_door_ptr_pair_map[&door_ptr_pair];
 
         if other_door_ptr_pair == (Some(0x1AA8C), Some(0x1AAE0)) {
@@ -1697,14 +1703,22 @@ impl<'a> Patcher<'a> {
         let tile_x: usize;
         let tile_y: usize;
         if door.direction == "right" {
-            plm_id = 0xF800; // must match address in hazard_markers.asm
+            if marker_type == DoorMarkerType::Hazard {
+                plm_id = 0xF800; // must match address in hazard_markers.asm
+            } else /*if marker_type == DoorMarkerType::Save*/ {
+                plm_id = 0xF810; // must match address in hazard_markers.asm
+            }
             tile_x = door.x * 16 + 15;
             tile_y = door.y * 16 + 6;
         } else if door.direction == "left" {
-            plm_id = 0xF80C; // must match address in hazard_markers.asm
+            if marker_type == DoorMarkerType::Hazard {
+                plm_id = 0xF80C; // must match address in hazard_markers.asm
+            } else /*if marker_type == DoorMarkerType::Save*/ {
+                plm_id = 0xF814; // must match address in hazard_markers.asm
+            }
             tile_x = door.x * 16;
             tile_y = door.y * 16 + 6;
-        } else if door.direction == "down" {
+        } else if door.direction == "down" && marker_type != DoorMarkerType::Save {
             if door.offset == Some(0) {
                 plm_id = 0xF808; // hazard marking overlaid on transition tiles
             } else {
@@ -1757,7 +1771,8 @@ impl<'a> Patcher<'a> {
     }
 
     fn apply_hazard_markers(&mut self) -> Result<()> {
-        let mut door_ptr_pairs = vec![
+        // Hazard Markers
+        let mut door_ptr_pairs_hazard = vec![
             (Some(0x1A42C), Some(0x1A474)), // Mt. Everest (top)
             (Some(0x1A678), Some(0x1A600)), // Oasis (top)
             (Some(0x1A3F0), Some(0x1A444)), // Fish Tank (top left)
@@ -1768,15 +1783,48 @@ impl<'a> Patcher<'a> {
             (Some(0x19312), Some(0x1934E)), // Ice Beam Gate Room crumbles (top left)
         ];
         if self.randomization.difficulty.wall_jump != WallJump::Vanilla {
-            door_ptr_pairs.extend(vec![
+            door_ptr_pairs_hazard.extend(vec![
                 (Some(0x18A06), Some(0x1A300)),  // West Ocean Gravity Suit door
                 (Some(0x198BE), Some(0x198CA)),  // Ridley's Room top door
                 (Some(0x193EA), Some(0x193D2)),  // Crocomire's Room top door
             ]);
         }
-        for pair in door_ptr_pairs {
-            self.apply_door_hazard_marker(pair)?;
+        for pair in door_ptr_pairs_hazard {
+            self.apply_door_hazard_marker(pair, DoorMarkerType::Hazard)?;
         }
+
+        // Save Markers
+        let door_ptr_pairs_save = vec![
+            (Some(0x189BE), Some(0x1899A)), // Crateria Save Room
+
+            (Some(0x19006), Some(0x18D12)), // Green Brinstar Main Shaft Save Room
+            (Some(0x19012), Some(0x18F52)), // Etecoon Save Room
+            (Some(0x18FD6), Some(0x18DF6)), // Big Pink Save Room
+            (Some(0x1926A), Some(0x190D2)), // Caterpillar Save Room
+            (Some(0x1925E), Some(0x19186)), // Kraid Save Room
+
+            (Some(0x19816), Some(0x192FA)), // Frog Savestation (Left)
+            (Some(0x1980A), Some(0x197DA)), // Frog Savestation (Right)
+            (Some(0x197CE), Some(0x1959A)), // Bubble Mountain Save Room
+            (Some(0x19822), Some(0x193BA)), // Crocomire Save Room
+            (Some(0x19462), Some(0x19456)), // Post Crocomire Save Room
+            (Some(0x1982E), Some(0x19702)), // Lower Norfair Elevator Save Room
+            (Some(0x19AB6), Some(0x19A0E)), // Red Kihunter Shaft Save Room
+
+            (Some(0x1A318), Some(0x1A240)), // Wrecked Ship Save Room
+
+            (Some(0x1A324), Some(0x1A354)), // Glass Tunnel Save Room
+            (Some(0x1A828), Some(0x1A744)), // Aqueduct Save Room
+            (Some(0x1A888), Some(0x1A7EC)), // Draygon Save Room (Left)
+            (Some(0x1A87C), Some(0x1A930)), // Draygon Save Room (Right)
+            (Some(0x1A5F4), Some(0x1A588)), // Forgotten Highway Save Room
+
+            (Some(0x1AAD4), Some(0x1AABC)), // Lower Tourian Save Room
+        ];
+        for pair in door_ptr_pairs_save {
+            self.apply_door_hazard_marker(pair, DoorMarkerType::Save)?;
+        }
+
         Ok(())
     }
 

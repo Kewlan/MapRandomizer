@@ -9,7 +9,7 @@ lorom
 !bank_b8_free_space_end = $B88100
 
 !hazard_tilemap_start = $E98280
-!hazard_tilemap_size = #$0020
+!hazard_tilemap_size = #$0030
 
 
 org $82E7BB
@@ -71,6 +71,12 @@ down_hazard_transition_plm:
 left_hazard_transition_plm:
     dw $B3D0, left_hazard_transition_inst
 
+right_save_transition_plm:
+    dw $B3D0, right_save_transition_inst
+
+left_save_transition_plm:
+    dw $B3D0, left_save_transition_inst
+
 load_hazard_tiles:
     jsl $80B271  ; run hi-jacked instruction (Decompress [tileset tiles pointer] to VRAM $0000)
 
@@ -81,12 +87,12 @@ load_hazard_tiles:
     lda #$00E9
     sta $4314  ; Set source bank to $E9
 
-    LDA #$2780
-    STA $2116  ; VRAM (destination) address = $2780
+    LDA #$2740
+    STA $2116  ; VRAM (destination) address = $2740
     lda #$8000 
     sta $4312  ; source address = $8000
-    lda #$0100
-    sta $4315 ; transfer size = $100 bytes
+    lda #$0180
+    sta $4315 ; transfer size = $180 bytes
     lda #$0002
     sta $420B  ; perform DMA transfer on channel 1
 
@@ -115,11 +121,11 @@ reload_hazard_tiles:
     jsl $80B0FF
     dl $7E2000
 
-    ; Copy hazard tiles from $E98000-$E98100 to $7E6F00
-    ldx #$00FE
+    ; Copy hazard tiles from $E98000-$E98180 to $7E6E80
+    ldx #$017E
 -
     lda $E98000,x
-    sta $7E6F00,x
+    sta $7E6E80,x
     dex
     dex
     bpl -
@@ -156,5 +162,19 @@ down_hazard_transition_inst:
 
 down_hazard_transition_draw:
     dw $0004, $90E2, $90E3, $94E3, $94E2, $0000
+
+right_save_transition_inst:
+    dw $0001, right_save_transition_draw
+    dw $86BC
+
+right_save_transition_draw:
+    dw $8004, $90E4, $90E5, $98E5, $98E4, $0000
+
+left_save_transition_inst:
+    dw $0001, left_save_transition_draw
+    dw $86BC
+
+left_save_transition_draw:
+    dw $8004, $94E4, $94E5, $9CE5, $9CE4, $0000
 
 warnpc !bank_84_free_space_end

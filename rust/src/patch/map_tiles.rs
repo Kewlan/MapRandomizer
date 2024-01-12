@@ -2604,16 +2604,200 @@ impl<'a> MapPatcher<'a> {
             out
         }
 
+        /* ORIGINAL
+        let save_tile1: [[u8; 8]; 8] = [
+            [b, b, b, b, b, b, b, b],
+            [b, b, b, b, b, b, b, b],
+            [6, 6, 6, 6, 5, 5, 6, 6],
+            [b, b, b, b, b, b, b, b],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [b, b, b, b, b, b, b, b],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [7, 7, b, b, 7, 7, 7, 7],
+        ];
+
+        let save_tile2: [[u8; 8]; 8] = [
+            [7, 7, b, b, 7, 7, 7, 7],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [5, 5, 4, 4, 4, 4, 4, 4],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [6, 6, b, b, 6, 6, 6, 6],
+        ];
+
+        let save_tile3: [[u8; 8]; 8] = [
+            [6, 6, b, b, 6, 6, 6, 6],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [5, 5, b, b, 5, 5, 5, 5],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [5, 5, b, b, 5, 5, 5, 5],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [5, 5, b, b, 5, 5, 5, 5],
+        ];
+
+        let save_tile4: [[u8; 8]; 8] = [
+            [b, 5, b, b, 5, 5, 5, 5],
+            [5, 4, 4, 4, w, w, 4, 4],
+            [b, 6, b, b, 6, 6, 6, 6],
+            [5, 5, b, b, 5, 5, 5, 5],
+            [4, 4, b, b, 4, 4, 4, 4],
+            [4, 4, b, b, 4, 4, 4, 4],
+            [4, 4, b, b, 4, 4, 4, 4],
+            [w, w, b, b, w, w, w, w],
+        ];*/
+
+        /* Black horizontal line filled black
+        let save_tile1: [[u8; 8]; 8] = [
+            [b, b, b, b, b, b, b, b],
+            [b, b, b, b, b, b, b, b],
+            [6, 6, 6, 6, 5, 5, 6, 6],
+            [b, b, b, b, b, b, b, b],
+            [7, 7, b, 3, 7, 7, 7, 7],
+            [b, b, b, b, b, b, b, b],
+            [7, 7, b, 3, 7, 7, 7, 7],
+            [7, 7, b, 3, 7, 7, 7, 7],
+        ];
+
+        let save_tile2: [[u8; 8]; 8] = [
+            [7, 7, b, 3, 7, 7, 7, 7],
+            [6, 6, 3, 2, 6, 6, 6, 6],
+            [7, 7, b, 3, 7, 7, 7, 7],
+            [6, 6, 3, 2, 6, 6, 6, 6],
+            [7, 7, b, 3, 7, 7, 7, 7],
+            [5, 5, 4, 4, 4, 4, 4, 4],
+            [7, 7, b, 3, 7, 7, 7, 7],
+            [6, 6, 3, 2, 6, 6, 6, 6],
+        ];
+
+        let save_tile3: [[u8; 8]; 8] = [
+            [6, 6, 3, 2, 6, 6, 6, 6],
+            [6, 6, 3, 2, 6, 6, 6, 6],
+            [6, 6, 3, 2, 6, 6, 6, 6],
+            [5, 5, 2, 1, 5, 5, 5, 5],
+            [6, 6, 3, 2, 6, 6, 6, 6],
+            [5, 5, 2, 1, 5, 5, 5, 5],
+            [6, 6, 3, 2, 6, 6, 6, 6],
+            [5, 5, 2, 1, 5, 5, 5, 5],
+        ];
+
+        let save_tile4: [[u8; 8]; 8] = [
+            [b, 5, 2, 1, 5, 5, 5, 5],
+            [5, 4, 4, 4, w, w, 4, 4],
+            [b, 6, 3, 2, 6, 6, 6, 6],
+            [5, 5, 2, 1, 5, 5, 5, 5],
+            [4, 4, 1, w, 4, 4, 4, 4],
+            [4, 4, 1, w, 4, 4, 4, 4],
+            [4, 4, 1, w, 4, 4, 4, 4],
+            [w, w, w, w, w, w, w, w],
+        ];*/
+
+        /* Green stripe in middle
+        let save_tile1: [[u8; 8]; 8] = [
+            [b, b, b, b, b, b, b, b],
+            [b, b, b, b, b, b, b, b],
+            [6, 6, 6, 6, 5, 5, 6, 6],
+            [b, b, b, b, b, b, b, b],
+            [7, 7, b, b, b, b, b, b],
+            [b, b, b, b, b, b, b, b],
+            [7, 7, b, b, b, b, b, b],
+            [7, 7, b, b, b, b, b, b],
+        ];
+
+        let save_tile2: [[u8; 8]; 8] = [
+            [7, 7, b, b, b, b, b, b],
+            [6, 6, 3, 3, 3, 3, 3, 3],
+            [7, 7, b, b, b, b, b, b],
+            [6, 6, 3, 3, 3, 3, 3, 3],
+            [7, 7, b, b, b, b, b, b],
+            [5, 5, 4, 4, 4, 4, 4, 4],
+            [7, 7, b, b, b, b, b, b],
+            [6, 6, 3, 3, 3, 3, 3, 3],
+        ];
+
+        let save_tile3: [[u8; 8]; 8] = [
+            [6, 6, 3, 3, 3, 3, 3, 3],
+            [6, 6, 3, 3, 3, 3, 3, 3],
+            [6, 6, 3, 3, 3, 3, 3, 3],
+            [5, 5, 2, 2, 2, 2, 2, 2],
+            [6, 6, 3, 3, 3, 3, 3, 3],
+            [5, 5, 2, 2, 2, 2, 2, 2],
+            [6, 6, 3, 3, 3, 3, 3, 3],
+            [5, 5, 2, 2, 2, 2, 2, 2],
+        ];
+
+        let save_tile4: [[u8; 8]; 8] = [
+            [b, 5, 2, 2, 2, 2, 2, 2],
+            [5, 4, 4, 4, w, w, 4, 4],
+            [b, 6, 3, 3, 3, 3, 3, 3],
+            [5, 5, 2, 2, 2, 2, 2, 2],
+            [4, 4, 1, 1, 1, 1, 1, 1],
+            [4, 4, 1, 1, 1, 1, 1, 1],
+            [4, 4, 1, 1, 1, 1, 1, 1],
+            [w, w, w, w, w, w, w, w],
+        ];*/
+
+        // Green lamps, similar to lamps on save station
+        let save_tile1: [[u8; 8]; 8] = [
+            [b, b, b, b, b, b, b, b],
+            [b, b, b, b, b, b, b, b],
+            [6, 6, 6, 6, 5, 5, 6, 6],
+            [b, b, b, b, b, b, b, b],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [b, b, b, b, b, b, b, b],
+            [7, b, 1, 2, b, 7, 7, 7],
+            [7, b, 2, 3, b, 7, 7, 7],
+        ];
+
+        let save_tile2: [[u8; 8]; 8] = [
+            [7, 7, b, b, 7, 7, 7, 7],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [5, 5, 4, 4, 4, 4, 4, 4],
+            [7, 7, b, b, 7, 7, 7, 7],
+            [6, 6, b, b, 6, 6, 6, 6],
+        ];
+
+        let save_tile3: [[u8; 8]; 8] = [
+            [6, 6, b, b, 6, 6, 6, 6],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [6, b, 1, 2, b, 6, 6, 6],
+            [5, b, 2, 3, b, 5, 5, 5],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [5, 5, b, b, 5, 5, 5, 5],
+            [6, 6, b, b, 6, 6, 6, 6],
+            [5, 5, b, b, 5, 5, 5, 5],
+        ];
+
+        let save_tile4: [[u8; 8]; 8] = [
+            [b, 5, b, b, 5, 5, 5, 5],
+            [5, 4, 4, 4, w, w, 4, 4],
+            [b, 6, b, b, 6, 6, 6, 6],
+            [5, 5, b, b, 5, 5, 5, 5],
+            [4, 4, b, b, 4, 4, 4, 4],
+            [4, 4, b, b, 4, 4, 4, 4],
+            [4, 4, b, b, 4, 4, 4, 4],
+            [w, b, 1, 2, b, w, w, w],
+        ];
+
         // Write 8x8 tiles:
         let base_addr = snes2pc(0xE98000);
-        self.write_tile_4bpp(base_addr, hazard_tile1)?;
-        self.write_tile_4bpp(base_addr + 0x20, hazard_tile2)?;
-        self.write_tile_4bpp(base_addr + 0x40, hazard_tile3)?;
-        self.write_tile_4bpp(base_addr + 0x60, hazard_tile4)?;
-        self.write_tile_4bpp(base_addr + 0x80, diagonal_flip_tile(hazard_tile1))?;
-        self.write_tile_4bpp(base_addr + 0xA0, diagonal_flip_tile(hazard_tile2))?;
-        self.write_tile_4bpp(base_addr + 0xC0, diagonal_flip_tile(hazard_tile3))?;
-        self.write_tile_4bpp(base_addr + 0xE0, diagonal_flip_tile(hazard_tile4))?;
+        self.write_tile_4bpp(base_addr + 0x0, save_tile1)?;
+        self.write_tile_4bpp(base_addr + 0x20, save_tile2)?;
+        self.write_tile_4bpp(base_addr + 0x40, save_tile3)?;
+        self.write_tile_4bpp(base_addr + 0x60, save_tile4)?;
+        self.write_tile_4bpp(base_addr + 0x80, hazard_tile1)?;
+        self.write_tile_4bpp(base_addr + 0xA0, hazard_tile2)?;
+        self.write_tile_4bpp(base_addr + 0xC0, hazard_tile3)?;
+        self.write_tile_4bpp(base_addr + 0xE0, hazard_tile4)?;
+        self.write_tile_4bpp(base_addr + 0x100, diagonal_flip_tile(hazard_tile1))?;
+        self.write_tile_4bpp(base_addr + 0x120, diagonal_flip_tile(hazard_tile2))?;
+        self.write_tile_4bpp(base_addr + 0x140, diagonal_flip_tile(hazard_tile3))?;
+        self.write_tile_4bpp(base_addr + 0x160, diagonal_flip_tile(hazard_tile4))?;
 
         // Write 16x16 tiles (tilemap):
         let base_addr = snes2pc(0xE98280);
@@ -2633,6 +2817,11 @@ impl<'a> MapPatcher<'a> {
         let flip_door_frame2_idx = 0x366;
         let flip_door_frame3_idx = 0x365;
         let flip_door_frame4_idx = 0x364;
+        let save_tile1_idx = 0x274;
+        let save_tile2_idx = 0x275;
+        let save_tile3_idx = 0x276;
+        let save_tile4_idx = 0x277;
+
         // Top fourth of door going right:
         self.rom.write_u16(base_addr, hazard_tile1_idx | 0x2000)?; // top-left quarter (palette 0)
         self.rom
@@ -2641,7 +2830,8 @@ impl<'a> MapPatcher<'a> {
             .write_u16(base_addr + 4, hazard_tile2_idx | 0x2000)?; // top-left quarter (palette 0)
         self.rom
             .write_u16(base_addr + 6, door_frame2_idx | 0x2400)?; // top-right quarter (palette 1)
-                                                                  // Second-from top fourth of door going right:
+
+        // Second-from top fourth of door going right:
         self.rom
             .write_u16(base_addr + 8, hazard_tile3_idx | 0x2000)?; // top-left quarter (palette 0)
         self.rom
@@ -2650,7 +2840,8 @@ impl<'a> MapPatcher<'a> {
             .write_u16(base_addr + 12, hazard_tile4_idx | 0x2000)?; // top-left quarter (palette 0)
         self.rom
             .write_u16(base_addr + 14, door_frame4_idx | 0x2400)?; // top-right quarter (palette 1)
-                                                                   // Left fourth of door going down:
+
+        // Left fourth of door going down:
         self.rom
             .write_u16(base_addr + 16, flip_hazard_tile1_idx | 0x2000)?; // top-left quarter (palette 0)
         self.rom
@@ -2659,7 +2850,8 @@ impl<'a> MapPatcher<'a> {
             .write_u16(base_addr + 20, flip_door_frame1_idx | 0x6400)?; // top-right quarter (palette 1, X flip)
         self.rom
             .write_u16(base_addr + 22, flip_door_frame2_idx | 0x6400)?; // top-right quarter (palette 1, X flip)
-                                                                        // Second-from left fourth of door going down:
+
+        // Second-from left fourth of door going down:
         self.rom
             .write_u16(base_addr + 24, flip_hazard_tile3_idx | 0x2000)?; // top-left quarter (palette 0)
         self.rom
@@ -2668,6 +2860,17 @@ impl<'a> MapPatcher<'a> {
             .write_u16(base_addr + 28, flip_door_frame3_idx | 0x6400)?; // top-right quarter (palette 1, X flip)
         self.rom
             .write_u16(base_addr + 30, flip_door_frame4_idx | 0x6400)?; // top-right quarter (palette 1, X flip)
+
+        // Save Tiles
+        self.rom.write_u16(base_addr + 32, save_tile1_idx | 0x2400)?; // top-left quarter (palette 0)
+        self.rom.write_u16(base_addr + 34, door_frame1_idx | 0x2400)?; // top-right quarter (palette 1)
+        self.rom.write_u16(base_addr + 36, save_tile2_idx | 0x2400)?; // top-left quarter (palette 0)
+        self.rom.write_u16(base_addr + 38, door_frame2_idx | 0x2400)?; // top-right quarter (palette 1)
+
+        self.rom.write_u16(base_addr + 40, save_tile3_idx | 0x2400)?; // top-left quarter (palette 0)
+        self.rom.write_u16(base_addr + 42, door_frame3_idx | 0x2400)?; // top-right quarter (palette 1)
+        self.rom.write_u16(base_addr + 44, save_tile4_idx | 0x2400)?; // top-left quarter (palette 0)
+        self.rom.write_u16(base_addr + 46, door_frame4_idx | 0x2400)?; // top-right quarter (palette 1)
 
         Ok(())
     }
