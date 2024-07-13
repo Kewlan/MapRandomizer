@@ -42,7 +42,7 @@ use std::time::Instant;
 use maprando::web::logic::LogicData;
 use maprando::web::VERSION;
 
-const VISUALIZER_PATH: &'static str = "../visualizer/";
+const VISUALIZER_PATH: &'static str =  "../visualizer/";
 const TECH_GIF_PATH: &'static str = "static/tech_gifs/";
 const NOTABLE_GIF_PATH: &'static str = "static/notable_gifs/";
 
