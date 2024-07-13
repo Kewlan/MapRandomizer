@@ -351,3 +351,7 @@ fn main() -> Result<()> {
 
     Ok(())
 }
+
+fn unused_function() -> u32 {
+     5
+}
