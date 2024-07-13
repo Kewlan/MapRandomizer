@@ -353,5 +353,5 @@ fn main() -> Result<()> {
 }
 
 fn unused_function() -> u32 {
-     5
+    5
 }
