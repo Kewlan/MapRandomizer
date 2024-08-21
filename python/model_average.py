@@ -3,7 +3,7 @@ from typing import Iterable
 import contextlib
 
 import torch
-
+ 
 class SimpleAverage:
     """
     Accumulates a simple average of a set of tensors.
