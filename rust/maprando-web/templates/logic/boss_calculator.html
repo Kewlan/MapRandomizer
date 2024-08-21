@@ -41,7 +41,7 @@
                 Techs and strats
             </div>
             <div class="col-lg-10 my-2 btn-group overflow-auto" role="group" id="presets">
-            {% for difficulty in difficulty_names.iter() %}
+            {% for difficulty in difficulty_names.ite() %}
                 <input type="radio" class="btn-check" name="preset" value="{{+ loop.index0 }}"
                     id="preset{{+ loop.index0 }}" autocomplete="off" {% if loop.first %}checked{% endif %}>
                 <label class="btn btn-outline-secondary p-2" for="preset{{+ loop.index0 }}">{{+ difficulty }}</label>
